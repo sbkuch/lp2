@@ -1,0 +1,57 @@
+#Columner Encryption
+from math import ceil
+def columner_encrypt(plaintext,keyword):
+    plaintext = plaintext.replace(" ","").upper()
+    keyword = keyword.upper()
+    
+    cols = len(keyword)
+    rows = ceil(len(plaintext)/cols)
+    
+    padded_length = rows * cols
+    plaintext += 'X' * (padded_length - len(plaintext))
+    
+    matrix = []
+    index = 0
+    for _ in range(rows):
+        matrix.append(list(plaintext[index : index+cols]))
+        index += cols
+        
+    key_order = sorted([(char,i) for i, char in enumerate(keyword)])
+    
+    ciphertext = ""
+    for _,col_index in key_order:
+        for row in matrix:
+            ciphertext += row[col_index]
+            
+    return ciphertext
+
+plaintext = 'I Am Gauri'
+keyword = 'Good'
+
+print("Plaintext is : ",plaintext)
+Encryption = columner_encrypt(plaintext,keyword)
+print("Text after encryption :",Encryption)
+
+def columner_decrypt(ciphertext, keyword):
+    keyword = keyword.upper()
+    cols = len(keyword)
+    rows = len(ciphertext)//cols
+    
+    matrix = [['' for _ in range(cols)] for _ in range(rows)]
+    
+    key_order = sorted([(char,i) for i, char in enumerate(keyword)])
+    
+    index = 0
+    for _,col_index in key_order:
+        for row in range(rows):
+            matrix[row][col_index] = ciphertext[index]
+            index += 1
+            
+    decrypt_text  = ""
+    for row in matrix:
+        decrypt_text += ''.join(row)
+        
+    return decrypt_text
+
+Decryption = columner_decrypt(Encryption, keyword)
+print("Decrypted text is  : ",Decryption)
