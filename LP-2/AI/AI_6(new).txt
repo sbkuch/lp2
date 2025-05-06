@@ -1,0 +1,47 @@
+def evaluate_performance(punctuality, quality, teamwork, initiative):
+    score = 0
+
+    # Rule-based scoring system
+    if punctuality == "high":
+        score += 2
+    elif punctuality == "medium":
+        score += 1
+
+    if quality == "high":
+        score += 2
+    elif quality == "medium":
+        score += 1
+
+    if teamwork == "good":
+        score += 2
+    elif teamwork == "average":
+        score += 1
+
+    if initiative == "proactive":
+        score += 2
+    elif initiative == "neutral":
+        score += 1
+
+    # Evaluation based on total score
+    if score >= 7:
+        evaluation = "Excellent"
+    elif 4 <= score < 7:
+        evaluation = "Good"
+    else:
+        evaluation = "Needs Improvement"
+
+    return score, evaluation
+
+# User inputs
+print("Please rate the following on levels - high/medium/low or good/average/poor")
+punctuality = input("Punctuality (high/medium/low): ").lower()
+quality = input("Quality of work (high/medium/low): ").lower()
+teamwork = input("Teamwork (good/average/poor): ").lower()
+initiative = input("Initiative (proactive/neutral/passive): ").lower()
+
+# Evaluate
+score, result = evaluate_performance(punctuality, quality, teamwork, initiative)
+
+print("\nEmployee Performance Evaluation Result:")
+print("Performance Score:", score)
+print("Performance Rating:", result)
